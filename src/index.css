@@ -1,0 +1,95 @@
+html, body
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sidebar
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    position: fixed;
+    height: 100vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 5vh;
+    left: 0;
+    top: 0;
+}
+
+.form
+{
+    text-align: center;
+}
+
+#main-content
+{
+    padding-top: 0;
+    margin-top: 0;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.btn-add
+{
+    margin-top: 2vh;
+    font-size: 2vw;
+}
+
+.title
+{
+    font-size: 1vw;
+}
+
+.sidebar h3
+{
+    color: white;
+}
+
+.centered-message
+{
+    text-align: center;
+}
+
+.show-centered
+{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width:525px){
+    .title
+    {
+        font-size: 4vw;
+    }
+}
+
+@media screen and (min-width:525px){
+    .btn-add
+    {
+        font-size: 2vw;
+    }
+    .title
+    {
+        font-size: 3vw;
+    }
+
+}
+
+@media screen and (min-width:800px){
+    .title
+    {
+        font-size: 1.5vw;
+    }
+    .btn-add
+    {
+        font-size: 1vw;
+    }
+
+}
+
