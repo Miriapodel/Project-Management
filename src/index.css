@@ -18,6 +18,8 @@ html, body
     padding-top: 5vh;
     left: 0;
     top: 0;
+    text-wrap: wrap;
+    max-width: 30vw;
 }
 
 .form
@@ -37,6 +39,7 @@ html, body
 {
     margin-top: 2vh;
     font-size: 2vw;
+    margin-bottom: 50px;
 }
 
 .title
@@ -60,6 +63,28 @@ html, body
     height: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.sidebarTitle
+{
+    color: white;
+    border: 1px solid white;
+    margin-top: 10px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.projectTop
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.multiline
+{
+    white-space: pre-wrap;
 }
 
 @media screen and (max-width:525px){
@@ -92,4 +117,5 @@ html, body
     }
 
 }
+
 
