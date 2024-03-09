@@ -1,5 +1,5 @@
 import React from "react";
-import AddButton from "./AddButton";
+import AddButton from "./Buttons/AddButton";
 import Title from "./Title";
 
 function Sidebar(){
