@@ -10,7 +10,7 @@ function App() {
   const [mainContentMargin, setMainContentMargin] = React.useState(0); // state pentru a seta dinamic marginea pentru main-content
   const [projects, setProjects] = React.useState([]); // state pentru proiecte
   const [formData, setFormData] = React.useState({titlu:"", descriere:""});  // state pentru a contrla formularul de input proiect 
-  const [projectToLoad, setProjectToLoad] = React.useState(null);
+  const [projectToLoadIndex, setProjectToLoadIndex] = React.useState(null);
   const [addProject, setAddProject] = React.useState(false); // state pentru a vedea daca la momentul curent suntem in starea in care
   // adaugam un proiect nou sau nu
 
@@ -52,7 +52,7 @@ function App() {
 
   function handleSubmitAddProjectForm(){
 
-      setProjects(prevProjects => [...prevProjects, formData]);
+      setProjects(prevProjects => [...prevProjects, {...formData, tasks:[]}]);
 
       setFormData(
         {
@@ -64,27 +64,33 @@ function App() {
       setAddProject(false);
   }
 
-  // metoda care se apeleaza dupa ce utilizatorul a ales din sidebar o proiect pe care vrea sa il vada
-  // se incarca datele despre proiect
-
-  function loadProject(index){
-    const currentProjectToLoad = projects[index];
-
-    setProjectToLoad(currentProjectToLoad);
-  }
-
+ 
 
   // functie care se apeleaza atunci cand se apasa pe butonul de add project din sidebar
   // declara intentia de a adauga un nou proiect
 
   function handleAddButtonClick(){
     setAddProject(true)
-    setProjectToLoad(null);
+    setProjectToLoadIndex(null);
+  }
+
+  //functie care sterge un proiect
+
+  function handleDeleteProject(index){
+    setProjects((prevProjects) => {
+      prevProjects.splice(index, 1)
+      return prevProjects});
+
+    setProjectToLoadIndex(null);
   }
   
+  function handleProjectToLoadChange(index){
+    setProjectToLoadIndex(index);
+  }
+
   return (
     <>
-      <Sidebar elementsToShow={projects} onAddButtonClicked={handleAddButtonClick} loadProject={loadProject}/>
+      <Sidebar elementsToShow={projects} onAddButtonClicked={handleAddButtonClick} loadProject={handleProjectToLoadChange}/>
 
       <div id="main-content" style={{marginLeft : mainContentMargin}} className={ (projects.length > 0 || addProject)? "" : "show-centered"} >
       
@@ -92,9 +98,9 @@ function App() {
 
         {addProject && <AddProject onChange={handleFormDataChange} value={formData} onCancel={handleCancelAddProjectForm} onSubmit={handleSubmitAddProjectForm} />}
 
-        { projectToLoad &&  <Project  toLoad={projectToLoad}/>}
+        { projectToLoadIndex != null &&  <Project index={projectToLoadIndex}  toLoad={projects[projectToLoadIndex]} onDelete={handleDeleteProject}/>}
 
-        { (projects.length > 0 && !addProject && projectToLoad == null) && <CenteredMessage message="Alege un proiect pe care sa il vezi"/>}
+        { (projects.length > 0 && !addProject && projectToLoadIndex == null) && <CenteredMessage message="Alege un proiect pe care sa il vezi"/>}
 
       </div>
 

@@ -4,6 +4,9 @@ import TextInput from "../Inputs/TextInput";
 // props: titlu, descriere, onChange
 
 const Project = React.forwardRef(function Project(props, ref){
+
+    console.log(props.toLoad);
+
     return(
         <div className="container">
 
@@ -11,7 +14,7 @@ const Project = React.forwardRef(function Project(props, ref){
 
                 <h1>{props.toLoad.titlu}</h1>
 
-                <span>Delete</span>
+                <span onClick={() => props.onDelete(props.index)}>Delete</span>
 
             </section>
             

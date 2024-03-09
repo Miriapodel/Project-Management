@@ -5,6 +5,7 @@ html, body
     box-sizing: border-box;
 }
 
+
 .sidebar
 {
     display: flex;
@@ -65,6 +66,11 @@ html, body
     align-items: center;
 }
 
+.container
+{
+    min-width: 70vw;
+}
+
 .sidebarTitle
 {
     color: white;
@@ -80,6 +86,14 @@ html, body
 {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.addTaskForm
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .multiline
