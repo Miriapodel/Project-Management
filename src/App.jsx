@@ -65,7 +65,6 @@ function App() {
   }
 
  
-
   // functie care se apeleaza atunci cand se apasa pe butonul de add project din sidebar
   // declara intentia de a adauga un nou proiect
 
