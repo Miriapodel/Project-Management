@@ -1,24 +1,30 @@
 import React from "react";
 import TextInput from "../Inputs/TextInput";
+import TaskElement from "../TaskElement";
+import JustTextButton from "../Buttons/JustTextButton";
 
 // props: titlu, descriere, onChange
 
 const Project = React.forwardRef(function Project(props, ref){
 
-    console.log(props.toLoad);
+    
+    function createTaskELement(element, index){
+        return (<TaskElement key={index} message={element} indexForDelete={index} indexForProject={props.index} handleDeleteTask={props.handleDeleteTask}/>)
+    }
+
 
     return(
         <div className="container">
 
             <section className="projectTop" >
 
-                <h1>{props.toLoad.titlu}</h1>
+                <h1>{props.toLoad[props.index].titlu}</h1>
 
-                <span onClick={() => props.onDelete(props.index)}>Delete</span>
+                <JustTextButton indexForProject={props.index} handleClick={props.onDelete} text="Delete"/>
 
             </section>
             
-            <div className="multiline">{props.toLoad.descriere}</div>
+            <div className="multiline">{props.toLoad[props.index].descriere}</div>
             <hr />
 
             <h3>Tasks</h3>
@@ -26,15 +32,15 @@ const Project = React.forwardRef(function Project(props, ref){
             <section className="addTaskForm">
 
                 <TextInput label="Task" placeholder="Add Task" name="taskName" ref={ref} />
-                <span>Add Task</span>
+                <JustTextButton indexForProject={props.index} handleClick={props.handleAddTask} text="Add Task"/>
 
             </section>
 
-            {/* <section className="showTasks">
+            <section className="show-tasks">
 
+                {props.toLoad[props.index].tasks.map(createTaskELement)}
 
-
-            </section> */}
+            </section>
 
         </div>
     );

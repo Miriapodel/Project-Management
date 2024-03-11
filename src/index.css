@@ -71,6 +71,12 @@ html, body
     min-width: 70vw;
 }
 
+.just-text-button
+{
+    cursor: pointer;
+}
+
+
 .sidebarTitle
 {
     color: white;
@@ -87,6 +93,27 @@ html, body
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.task-view
+{
+    display: flex block;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    background-color: lightgray;
+}
+
+.task-view p
+{
+    margin: 5px;
+    padding: 0;
+    text-align: center;
+}
+
+.task-view > .just-text-button
+{
+    margin-right: 5px;
 }
 
 .addTaskForm

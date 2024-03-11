@@ -88,6 +88,33 @@ function App() {
     setProjectToLoadIndex(index);
   }
 
+
+  // functie care se apeleaza atunci cand adaugam un task
+
+  function addTaskToProject(index){
+
+    const taskMessage = taskNameInputRef.current.value;
+    taskNameInputRef.current.value = "";
+
+    setProjects( prevProjects =>{
+      const projectsToUpdate = [...prevProjects]; // daca nu facem o copie, react nu va re-randa -> vede ca sunt aceleasi ref
+
+      projectsToUpdate[index].tasks.push(taskMessage);
+
+      return projectsToUpdate;
+    });
+  }
+
+  function deleteTaskFromProject(indexForProject, indexForDelete){
+    setProjects( prevProjects => {
+
+      const projectsToUpdate = [...prevProjects];
+      projectsToUpdate[indexForProject].tasks.splice(indexForDelete, 1);
+
+      return projectsToUpdate;
+});
+}
+
   return (
     <>
       <Sidebar elementsToShow={projects} onAddButtonClicked={handleAddButtonClick} loadProject={handleProjectToLoadChange}/>
@@ -98,7 +125,7 @@ function App() {
 
         {addProject && <AddProject onChange={handleFormDataChange} value={formData} onCancel={handleCancelAddProjectForm} onSubmit={handleSubmitAddProjectForm} />}
 
-        { projectToLoadIndex != null &&  <Project index={projectToLoadIndex}  toLoad={projects[projectToLoadIndex]} onDelete={handleDeleteProject}/>}
+        { projectToLoadIndex != null &&  <Project index={projectToLoadIndex}  toLoad={projects} onDelete={handleDeleteProject} handleAddTask={addTaskToProject} ref={taskNameInputRef} handleDeleteTask={deleteTaskFromProject} />}
 
         { (projects.length > 0 && !addProject && projectToLoadIndex == null) && <CenteredMessage message="Alege un proiect pe care sa il vezi"/>}
 
@@ -109,3 +136,9 @@ function App() {
 }
 
 export default App;
+
+
+// TODO: SA ADAUG POSIBILITATEA DE A ADAUGA SI STERGE TASK-URI
+// TODO: SA ADAUG UN MODULE ATUNCI CAND TITLUL UNUI TASK NU E INTRODUS
+// PORTAL PENTRU MODULE
+// TODO: COMPONENTA SEPARATA PENTRU BUTOANELE DELETE ,ADD ETC.
