@@ -3,10 +3,12 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import CenteredMessage from "./components/CenteredMessage";
 import AddProject from "./components/Projects Related/AddProject";
 import Project from "./components/Projects Related/Project";
+import Modal from "./components/Modal";
 
 function App() {
 
   const taskNameInputRef = React.useRef(); // referinta catre input-ul care seteaza numele proiectului
+  const dialogRef = React.useRef(); // referinta catre modal care apare atunci cand nu se introduce titlul unui proiect/task
   const [mainContentMargin, setMainContentMargin] = React.useState(0); // state pentru a seta dinamic marginea pentru main-content
   const [projects, setProjects] = React.useState([]); // state pentru proiecte
   const [formData, setFormData] = React.useState({titlu:"", descriere:""});  // state pentru a contrla formularul de input proiect 
@@ -52,7 +54,14 @@ function App() {
 
   function handleSubmitAddProjectForm(){
 
+      if(formData.titlu === "")
+        dialogRef.current.open("Trebuie ca proiectul sa aiba un titlu");
+      else
+      {
       setProjects(prevProjects => [...prevProjects, {...formData, tasks:[]}]);
+
+      setAddProject(false);
+      }
 
       setFormData(
         {
@@ -61,7 +70,7 @@ function App() {
         }
       );
 
-      setAddProject(false);
+      
   }
 
  
@@ -73,6 +82,7 @@ function App() {
     setProjectToLoadIndex(null);
   }
 
+
   //functie care sterge un proiect
 
   function handleDeleteProject(index){
@@ -83,6 +93,7 @@ function App() {
     setProjectToLoadIndex(null);
   }
   
+
   function handleProjectToLoadChange(index){
     setProjectToLoadIndex(index);
   }
@@ -93,7 +104,12 @@ function App() {
   function addTaskToProject(index){
 
     const taskMessage = taskNameInputRef.current.value;
-    taskNameInputRef.current.value = "";
+
+    if(taskMessage === ""){
+      dialogRef.current.open("Trebuie ca task-ul sa aiba un titlu");
+    }
+    else{
+      taskNameInputRef.current.value = "";
 
     setProjects( prevProjects =>{
       const projectsToUpdate = [...prevProjects]; // daca nu facem o copie, react nu va re-randa -> vede ca sunt aceleasi ref
@@ -102,7 +118,11 @@ function App() {
 
       return projectsToUpdate;
     });
+    }
+
+    
   }
+
 
   function deleteTaskFromProject(indexForProject, indexForDelete){
     setProjects( prevProjects => {
@@ -128,6 +148,8 @@ function App() {
 
         { (projects.length > 0 && !addProject && projectToLoadIndex == null) && <CenteredMessage message="Alege un proiect pe care sa il vezi"/>}
 
+        <Modal ref={dialogRef}/>
+
       </div>
 
     </>
@@ -137,7 +159,6 @@ function App() {
 export default App;
 
 
-// TODO: SA ADAUG POSIBILITATEA DE A ADAUGA SI STERGE TASK-URI
+
 // TODO: SA ADAUG UN MODULE ATUNCI CAND TITLUL UNUI TASK NU E INTRODUS
 // PORTAL PENTRU MODULE
-// TODO: COMPONENTA SEPARATA PENTRU BUTOANELE DELETE ,ADD ETC.
